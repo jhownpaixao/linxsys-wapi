@@ -1,0 +1,23 @@
+{
+  "name": "linxsys/wapi",
+  "description": "interface de integração com o linxsys/baileys-api",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Linxsys\\Wapi\\": "src/"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit tests"
+  },
+  "authors": [
+    {
+      "name": "Jhonnata Nascimento da Paixão",
+      "email": "114832000+jhownpaixao@users.noreply.github.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require-dev": {
+    "phpunit/phpunit": "^10.3@dev"
+  }
+}
