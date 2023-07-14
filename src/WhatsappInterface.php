@@ -60,8 +60,6 @@ class WhatsappInterface
             "body" => $body,
             "simulation" => $simulation
         ]);
-
-        var_dump($request);
     }
     public function validate()
     {

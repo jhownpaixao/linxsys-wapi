@@ -2,6 +2,8 @@
 
 namespace Linxsys\Wapi;
 
+use Komodo\Logger\Logger;
+
 /*******************************************************************************************
  LinxSys WAPI Project
  ____________________________________________________________________________________________
@@ -22,28 +24,31 @@ class WAPI
    public $host;
    public $token;
    public $session;
-
    public $qrcode;
 
    // #Parameters
-
    /**
     * @var \CurlHandle|bool|resource $request
     */
    private $curl;
 
+   private $logger;
+
 
    // *Constructor
    /**
-    * @param string $host Endereço de conexão do linxsys-baileys-api
-    * 
+    * @param string $host
+    * @param string $session
+    * @param string $token
+    * @param Logger $logger
     * @return WAPI
     */
-   public function __construct($host, $session = null, $token = null)
+   public function __construct($host, $session = null, $token = null, $logger)
    {
       $this->host = $host;
       $this->curl = curl_init();
-
+      $this->logger = $logger ?: new Logger;
+      $this->logger->register('Komodo\\WAPI');
       if ($session && $token) {
          $this->connect($session, $token);
       }
@@ -76,13 +81,12 @@ class WAPI
       ));
 
       $curl_response = curl_exec($this->curl);
-      var_dump($curl_response);
       $process = false;
       if (curl_errno($this->curl)) {
-         echo 'Curl error: ' . curl_error($this->curl);
+         $this->logger->error('Curl error: ' . curl_error($this->curl));
       } else {
          $info = curl_getinfo($this->curl);
-         echo 'Took ', $info['total_time'], ' seconds to send a request to ', $info['url'], "\n";
+         $this->logger->debug("Took {$info['total_time']} seconds to send a request to {$info['url']}");
          $process = new Response(intval($info['http_code']), $curl_response);
       }
 
@@ -107,21 +111,20 @@ class WAPI
 
       if (!$request) return false;
 
-      /* var_dump($request->body); */
 
       switch ($request->status) {
          case 200:
-            echo "escaneie o QRCode\n";
+            $this->logger->info("escaneie o QRCode");
             $this->qrcode = $request->body['qr'];
             return true;
          case 409:
-            echo "sessão conectada\n";
+            $this->logger->info("sessão conectada");
             return new WhatsappInterface($this);
          case 401:
-            echo "token inválido ou sem acesso\n";
+            $this->logger->error("token inválido ou sem acesso");
             return false;
          default:
-            echo "not\n";
+            $this->logger->error($request->status, "Ocorreu um erro na tentativa de conexão");
             return false;
       }
    }
@@ -135,20 +138,22 @@ class WAPI
 
       switch ($request->status) {
          case 200:
+            $this->logger->info($request->status, "Sessão desconectada com sucesso");
             return true;
 
          case 401:
-            echo $request->body['error'] . PHP_EOL ?: 'Erro de autorização' . PHP_EOL;
+            $this->logger->error($request->body['error'], 'Erro de autorização na tentativa de desconexão');
             return false;
 
          case 403:
-            echo $request->body['error'] . PHP_EOL ?: 'Erro de autorização' . PHP_EOL;
+            $this->logger->error($request->body['error'], 'Erro de autorização na tentativa de desconexão');
             return false;
 
          case 404:
-            echo $request->body['error'] . PHP_EOL ?: 'Sessão não encontrada' . PHP_EOL;
+            $this->logger->error($request->body['error'], 'Erro de sessão inexistente na tentativa de desconexão');
             return false;
          default:
+            $this->logger->error($request->status, "Ocorreu um erro na tentativa de desconexão");
             return false;
       }
    }
@@ -165,14 +170,14 @@ class WAPI
          "webhook" => $webhook
       ], false);
 
-      var_dump($request->body);
 
       switch ($request->status) {
          case 200:
+            $this->logger->info($request->body['error'], 'Sessão criada com sucess');
             return true;
 
          case 409:
-            echo $request->body['error'] . PHP_EOL ?: 'Erro de autorização' . PHP_EOL;
+            $this->logger->error($request->body['error'], 'Erro de autorização na tentativa de criação da sessão');
             return false;
          default:
             return false;

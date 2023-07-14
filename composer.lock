@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76fad0d27aa2aebf9d9baf149a8c7dd8",
-    "packages": [],
+    "content-hash": "f29e30fc5c45e9ae0b4f4096a34140d5",
+    "packages": [
+        {
+            "name": "komodo/logger",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jhownpaixao/Komodo-Logger.git",
+                "reference": "b75844537a985188eee9641408dbf21caaab987f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jhownpaixao/Komodo-Logger/zipball/b75844537a985188eee9641408dbf21caaab987f",
+                "reference": "b75844537a985188eee9641408dbf21caaab987f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Komodo\\Logger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jhonnata Nascimento da Paixão",
+                    "email": "114832000+jhownpaixao@users.noreply.github.com"
+                }
+            ],
+            "description": "A simple logger for php",
+            "support": {
+                "issues": "https://github.com/jhownpaixao/Komodo-Logger/issues",
+                "source": "https://github.com/jhownpaixao/Komodo-Logger/tree/main"
+            },
+            "time": "2023-07-14T15:39:49+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "myclabs/deep-copy",
@@ -1665,7 +1707,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "phpunit/phpunit": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
