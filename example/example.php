@@ -1,6 +1,6 @@
 <?php
 
-require('./vendor/autoload.php');
+require('../vendor/autoload.php');
 /*******************************************************************************************
   LinxSys WAPI Project - example
  ____________________________________________________________________________________________
@@ -22,5 +22,8 @@ $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uIjoiamhvbm5hdGEiLCJ1b
 $wapi = new WAPI('http://localhost:4000');
 
 $whatsapp = $wapi->connect($session, $token);
+if ($whatsapp === true) {
+  var_dump($wapi->qrcode);
+}
 
 $whatsapp->sendText('41999614101', 'Olá teste');

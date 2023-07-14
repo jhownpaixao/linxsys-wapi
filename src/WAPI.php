@@ -23,6 +23,8 @@ class WAPI
    public $token;
    public $session;
 
+   public $qrcode;
+
    // #Parameters
 
    /**
@@ -110,6 +112,7 @@ class WAPI
       switch ($request->status) {
          case 200:
             echo "escaneie o QRCode\n";
+            $this->qrcode = $request->body['qr'];
             return true;
          case 409:
             echo "sessão conectada\n";
