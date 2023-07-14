@@ -43,7 +43,7 @@ class WAPI
     * @param Logger $logger
     * @return WAPI
     */
-   public function __construct($host, $session = null, $token = null, $logger)
+   public function __construct($host, $session = null, $token = null, $logger = null)
    {
       $this->host = $host;
       $this->curl = curl_init();
