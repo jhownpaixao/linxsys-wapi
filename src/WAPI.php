@@ -128,7 +128,8 @@ class WAPI
             return true;
          case 409:
             $this->logger->info("sessão conectada");
-            return new WhatsappInterface($this);
+            $connection = $request->body['connection'];
+            return new WhatsappInterface($this, $connection, $this->logger);
          case 401:
             $this->logger->error("token inválido ou sem acesso");
             return false;

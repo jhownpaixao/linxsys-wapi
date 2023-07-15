@@ -27,33 +27,44 @@ class WhatsappInterface
     /**
      * @var string
      */
-    public $name;
+    public  readonly string $name;
 
     /**
      * @var string
      */
-    public $picture;
+    public  readonly string $picture;
 
     /**
      * @var string
      */
-    public $number;
+    public  readonly string $phone;
 
     /**
      * @var string
      */
-    public $token;
+    public readonly string $uniqKey;
 
     /**
      * @var Logger
      */
     private $logger;
 
-    public function __construct($session, $logger = null)
+    /**
+     * @param WAPI $session
+     * @param array $connection
+     * @param null|Logger $logger
+     */
+    public function __construct($session, $connection, $logger = null)
     {
         $this->session = $session;
         $this->logger = $logger ? clone $logger : new Logger;
         $this->logger->register('Komodo\\WhatsappInterface');
+
+        $this->name = $connection['nome'];
+        $this->phone = $connection['numero'];
+        $this->picture = $connection['image'];
+        $this->uniqKey = $connection['id'];
+        
     }
 
     // #Public Methods
@@ -150,7 +161,7 @@ class WhatsappInterface
         ]);
         return $request ? $request->body['status'] : false;
     }
-    
+
     public function validate()
     {
     }

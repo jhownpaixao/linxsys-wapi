@@ -27,4 +27,5 @@ if ($whatsapp === true) {
   var_dump($wapi->qrcode);
 }
 
-$whatsapp->sendText('41999614101', 'Olá teste');
+var_dump($whatsapp->name);
+/* $whatsapp->sendText('41999614101', 'Olá teste'); */
