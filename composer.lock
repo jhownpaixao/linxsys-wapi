@@ -292,12 +292,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "71acd369019ee865c829796dda1db2e62ad09204"
+                "reference": "c6e2e46e994a3b55a42feb2a8effdee83a22b394"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/71acd369019ee865c829796dda1db2e62ad09204",
-                "reference": "71acd369019ee865c829796dda1db2e62ad09204",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c6e2e46e994a3b55a42feb2a8effdee83a22b394",
+                "reference": "c6e2e46e994a3b55a42feb2a8effdee83a22b394",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-06T09:16:25+00:00"
+            "time": "2023-07-15T05:37:20+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -620,12 +620,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5325aaa252b00de09534105a0e9a26c238637930"
+                "reference": "6d98a507127c215d70a0e108bd72b05fcde58733"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5325aaa252b00de09534105a0e9a26c238637930",
-                "reference": "5325aaa252b00de09534105a0e9a26c238637930",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6d98a507127c215d70a0e108bd72b05fcde58733",
+                "reference": "6d98a507127c215d70a0e108bd72b05fcde58733",
                 "shasum": ""
             },
             "require": {
@@ -714,7 +714,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-13T13:11:51+00:00"
+            "time": "2023-07-14T15:34:52+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -1708,6 +1708,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "komodo/logger": 20,
         "phpunit/phpunit": 20
     },
     "prefer-stable": false,

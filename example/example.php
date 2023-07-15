@@ -22,6 +22,7 @@ $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uIjoiamhvbm5hdGEiLCJ1b
 $wapi = new WAPI('http://localhost:4000');
 
 $whatsapp = $wapi->connect($session, $token);
+
 if ($whatsapp === true) {
   var_dump($wapi->qrcode);
 }
