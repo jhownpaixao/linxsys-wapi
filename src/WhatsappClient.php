@@ -2,9 +2,6 @@
 
 namespace Linxsys\Wapi;
 
-use CURLFile;
-use Komodo\Logger\Logger;
-
 /*******************************************************************************************
  LinxSys WAPI Project
  ____________________________________________________________________________________________
@@ -17,7 +14,21 @@ use Komodo\Logger\Logger;
  *
  *********************************************************************************************/
 
-class WhatsappInterface
+use CURLFile;
+use Komodo\Logger\Logger;
+use Linxsys\Wapi\Interfaces\HTTP;
+
+/**
+ * Classe com os metodos básicos utilizados no
+ * linxsys-baileys-api
+ *
+ * @package    WAPI
+ * @author     Jhonnata Paixão <https://github.com/jhownpaixao>
+ * @copyright  Copyright (c) 2023 LinxSys (https://linxsys.com.br/)
+ * @license    MIT License
+ * @version    1.0
+ */
+class WhatsappClient
 {
     /**
      * @var WAPI
@@ -50,14 +61,9 @@ class WhatsappInterface
     private $logger;
 
     /**
-     * @var array
+     * @var Simulation
      */
-    private $simulation = [
-        "ActivateHumanizedSimulation" => true,
-        "AudioBasedRecordingSpeed" => true,
-        "TypingSpeed" => 300,
-        "AudioRecordingSpeed" => 2000
-    ];
+    private $simulation;
 
     /**
      * @param WAPI $session
@@ -74,6 +80,8 @@ class WhatsappInterface
         $this->phone = $connection['numero'];
         $this->picture = $connection['image'];
         $this->uniqKey = $connection['id'];
+
+        $this->simulation = new Simulation();
     }
 
     // #Public Methods
@@ -91,7 +99,7 @@ class WhatsappInterface
             $this->logger->error($audio, 'Não é possivel enviar o audio. Arquivo não encontrado');
             return false;
         };
-        $simulation = $simulation ? $this->simulation : null;
+        $simulation = $simulation ? $this->simulation->getParams() : null;
         $this->logger->trace([$audio, $recorded, $to, $simulation], 'Enviando audio');
 
         $request = $this->session->request('/message/send-audio', HTTP::POST, [
@@ -117,7 +125,7 @@ class WhatsappInterface
             $this->logger->error($image, 'Não é possivel enviar a imagem. Arquivo não encontrado');
             return false;
         };
-        $simulation = $simulation ? $this->simulation : null;
+        $simulation = $simulation ? $this->simulation->getParams() : null;
         $this->logger->trace([$image, $body, $to], 'Enviando imagem');
 
         $request = $this->session->request('/message/send-image', HTTP::POST, [
@@ -164,7 +172,7 @@ class WhatsappInterface
      */
     public function sendText($to, $body, $simulation = null)
     {
-        $simulation = $simulation ? $this->simulation : null;
+        $simulation = $simulation ? $this->simulation->getParams() : null;
         $this->logger->trace([$body, $to, $simulation], 'Enviando texto');
 
         $request = $this->session->request('/message/send-text', HTTP::POST, [

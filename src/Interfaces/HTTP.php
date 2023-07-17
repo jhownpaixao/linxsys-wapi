@@ -1,6 +1,6 @@
 <?php
 
-namespace Linxsys\Wapi;
+namespace Linxsys\Wapi\Interfaces;
 
 /*******************************************************************************************
  LinxSys WAPI Project

@@ -2,8 +2,6 @@
 
 namespace Linxsys\Wapi;
 
-use Komodo\Logger\Logger;
-
 /*******************************************************************************************
  LinxSys WAPI Project
  ____________________________________________________________________________________________
@@ -16,7 +14,18 @@ use Komodo\Logger\Logger;
  *
  *********************************************************************************************/
 
+use Komodo\Logger\Logger;
+use Linxsys\Wapi\Interfaces\HTTP;
 
+/**
+ * Classe para criação de instâncias do WAPI
+ *
+ * @package    WAPI
+ * @author     Jhonnata Paixão <https://github.com/jhownpaixao>
+ * @copyright  Copyright (c) 2023 LinxSys (https://linxsys.com.br/)
+ * @license    MIT License
+ * @version    1.0
+ */
 class WAPI
 {
 
@@ -108,7 +117,7 @@ class WAPI
     * @param string $token Token de acesso à sessão
     * @param string $session Nome da sessão
     * 
-    * @return boolean|WhatsappInterface
+    * @return boolean|WhatsappClient
     */
    public function connect($session, $token)
    {
@@ -129,7 +138,7 @@ class WAPI
          case 409:
             $this->logger->info("sessão conectada");
             $connection = $request->body['connection'];
-            return new WhatsappInterface($this, $connection, $this->logger);
+            return new WhatsappClient($this, $connection, $this->logger);
          case 401:
             $this->logger->error("token inválido ou sem acesso");
             return false;

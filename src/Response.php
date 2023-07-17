@@ -14,6 +14,16 @@ namespace Linxsys\Wapi;
  *
  *********************************************************************************************/
 
+/**
+ * Classe de representação do objeto de respostas
+ * da requisição para o linxsys-baileys-api
+ *
+ * @package    WAPI
+ * @author     Jhonnata Paixão <https://github.com/jhownpaixao>
+ * @copyright  Copyright (c) 2023 LinxSys (https://linxsys.com.br/)
+ * @license    MIT License
+ * @version    1.0
+ */
 class Response
 {
 
