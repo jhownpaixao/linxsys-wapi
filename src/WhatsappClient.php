@@ -63,7 +63,7 @@ class WhatsappClient
     /**
      * @var Simulation
      */
-    private $simulation;
+    public $simulation;
 
     /**
      * @param WAPI $session
