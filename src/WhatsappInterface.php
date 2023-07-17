@@ -64,7 +64,6 @@ class WhatsappInterface
         $this->phone = $connection['numero'];
         $this->picture = $connection['image'];
         $this->uniqKey = $connection['id'];
-        
     }
 
     // #Public Methods
@@ -98,6 +97,7 @@ class WhatsappInterface
      * @param string $body
      * @param null|boolean $simulation
      * 
+     * 
      * @return boolean
      */
     public function sendImage($to, $image, $body = null)
@@ -120,12 +120,13 @@ class WhatsappInterface
 
     /**
      * @param string $to
-     * @param string $body
-     * @param null|boolean $simulation
+     * @param string $file
+     * @param string|null $body
+     * @param string|null $mimetype
      * 
      * @return boolean
      */
-    public function sendFile($to, $file, $body = null)
+    public function sendFile($to, $file, $body = null, $mimetype = null)
     {
         if (!is_file($file)) {
             $this->logger->error($file, 'Não é possivel enviar o arquivo. Arquivo não encontrado');
@@ -137,7 +138,7 @@ class WhatsappInterface
         $request = $this->session->request('/message/send-file', HTTP::POST, [
             "body" => $body,
             "number" => $to,
-            "file" => new CURLFile($file)
+            "file" => new CURLFile($file, $mimetype)
         ], 'file');
 
         return $request ? $request->body['status'] : false;
