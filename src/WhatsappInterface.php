@@ -50,6 +50,16 @@ class WhatsappInterface
     private $logger;
 
     /**
+     * @var array
+     */
+    private $simulation = [
+        "ActivateHumanizedSimulation" => true,
+        "AudioBasedRecordingSpeed" => true,
+        "TypingSpeed" => 300,
+        "AudioRecordingSpeed" => 2000
+    ];
+
+    /**
      * @param WAPI $session
      * @param array $connection
      * @param null|Logger $logger
@@ -70,18 +80,18 @@ class WhatsappInterface
     /**
      * @param string $to
      * @param string $audio
-     * @param bool $recorded
-     * @param array $simulation
+     * @param boolean $recorded
+     * @param boolean|null $simulation
      * 
      * @return boolean
      */
-    public function sendAudio($to, $audio, $recorded = false, $simulation = [])
+    public function sendAudio($to, $audio, $recorded = false, $simulation = null)
     {
         if (!is_file($audio)) {
             $this->logger->error($audio, 'Não é possivel enviar o audio. Arquivo não encontrado');
             return false;
         };
-
+        $simulation = $simulation ? $this->simulation : null;
         $this->logger->trace([$audio, $recorded, $to, $simulation], 'Enviando audio');
 
         $request = $this->session->request('/message/send-audio', HTTP::POST, [
@@ -94,19 +104,20 @@ class WhatsappInterface
     }
     /**
      * @param string $to
+     * @param string $image
      * @param string $body
      * @param null|boolean $simulation
      * 
      * 
      * @return boolean
      */
-    public function sendImage($to, $image, $body = null)
+    public function sendImage($to, $image, $body = null, $simulation = null)
     {
         if (!is_file($image)) {
             $this->logger->error($image, 'Não é possivel enviar a imagem. Arquivo não encontrado');
             return false;
         };
-
+        $simulation = $simulation ? $this->simulation : null;
         $this->logger->trace([$image, $body, $to], 'Enviando imagem');
 
         $request = $this->session->request('/message/send-image', HTTP::POST, [
@@ -153,6 +164,7 @@ class WhatsappInterface
      */
     public function sendText($to, $body, $simulation = null)
     {
+        $simulation = $simulation ? $this->simulation : null;
         $this->logger->trace([$body, $to, $simulation], 'Enviando texto');
 
         $request = $this->session->request('/message/send-text', HTTP::POST, [
