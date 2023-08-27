@@ -131,7 +131,7 @@ class WAPI
         };
 
         switch ($request->status) {
-            case 200:
+            case 202:
                 $this->logger->info("escaneie o QRCode");
                 $this->qrcode = $request->body['qr'];
                 return true;
