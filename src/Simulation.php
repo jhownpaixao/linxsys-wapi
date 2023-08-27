@@ -58,7 +58,7 @@ class Simulation
     // #Public Methods
     /**
      * Ativa a opção de enviar status digitando, gravando e etc...
-     * 
+     *
      * @param boolean $active
      * @return void
      */
@@ -70,7 +70,7 @@ class Simulation
     /**
      * Envia o status 'gravando...' com o tempo determinado pelo tempo total
      * do arquivo de audio anexado
-     * 
+     *
      * @param boolean $active
      * @return void
      */
@@ -81,7 +81,7 @@ class Simulation
 
     /**
      * Velocidade de digitação por tecla em milisgundos
-     * 
+     *
      * @param int $speed
      * @return void
      */
@@ -91,9 +91,9 @@ class Simulation
     }
 
     /**
-     * Envia de forma manual o tempo que o status 'gravando...' será 
+     * Envia de forma manual o tempo que o status 'gravando...' será
      * enviado para o cliente
-     * 
+     *
      * @param int $speed
      * @return void
      */
@@ -105,7 +105,7 @@ class Simulation
     /**
      * Retorna a array de keys fornecendo todos os parametros para
      * o envio da propriedade 'simulation' na requisição
-     * 
+     *
      * @return array
      */
     public function getParams()

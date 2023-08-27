@@ -38,17 +38,17 @@ class WhatsappClient
     /**
      * @var string
      */
-    public  readonly string $name;
+    public readonly string $name;
 
     /**
      * @var string
      */
-    public  readonly string $picture;
+    public readonly string $picture;
 
     /**
      * @var string
      */
-    public  readonly string $phone;
+    public readonly string $phone;
 
     /**
      * @var string
@@ -74,7 +74,7 @@ class WhatsappClient
     {
         $this->session = $session;
         $this->logger = $logger ? clone $logger : new Logger;
-        $this->logger->register('Komodo\\WhatsappInterface');
+        $this->logger->register(static::class);
 
         $this->name = $connection['nome'];
         $this->phone = $connection['numero'];
@@ -90,7 +90,7 @@ class WhatsappClient
      * @param string $audio
      * @param boolean $recorded
      * @param boolean|null $simulation
-     * 
+     *
      * @return boolean
      */
     public function sendAudio($to, $audio, $recorded = false, $simulation = null)
@@ -115,8 +115,8 @@ class WhatsappClient
      * @param string $image
      * @param string $body
      * @param null|boolean $simulation
-     * 
-     * 
+     *
+     *
      * @return boolean
      */
     public function sendImage($to, $image, $body = null, $simulation = null)
@@ -142,7 +142,7 @@ class WhatsappClient
      * @param string $file
      * @param string|null $body
      * @param string|null $mimetype
-     * 
+     *
      * @return boolean
      */
     public function sendFile($to, $file, $body = null, $mimetype = null)
@@ -167,7 +167,7 @@ class WhatsappClient
      * @param string $to
      * @param string $body
      * @param null|boolean $simulation
-     * 
+     *
      * @return boolean
      */
     public function sendText($to, $body, $simulation = null)
