@@ -133,7 +133,7 @@ class WAPI
         switch ($request->status) {
             case 202:
                 $this->logger->info("escaneie o QRCode");
-                $this->qrcode = $request->body['qr'];
+                $this->qrcode = $this->status();
                 return true;
             case 409:
                 $this->logger->info("sessão conectada");
@@ -144,6 +144,12 @@ class WAPI
             default:
                 throw new ConnectionException($this->host, 'unsupported status code', $request->status, $this->logger);
         }
+    }
+
+    public function status()
+    {
+        $request = $this->request('/check-connection-session', HTTP::POST);
+        return $request->body['qrcode'];
     }
 
     /**
